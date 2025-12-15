@@ -42,7 +42,6 @@ export const Shapes = {
 
         const insideColor = new THREE.Color(parameters.insideColor);
         const outsideColor = new THREE.Color(parameters.outsideColor);
-        const tempColor = new THREE.Color();
 
         for (let i = 0; i < numPoints; i++) {
             // Radius

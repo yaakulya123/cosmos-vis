@@ -5,8 +5,9 @@ export class ThreeScene {
     constructor(containerId) {
         this.container = document.getElementById(containerId);
 
-        // Scene / Camera / Renderer
+        // Scene Setup
         this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color(0x000000); // Pure Black
         this.scene.fog = new THREE.FogExp2(0x000000, 0.002);
 
         // Lighting (Optional for PointsMaterial but good to have)
@@ -15,14 +16,15 @@ export class ThreeScene {
 
         // DEBUG BOX REMOVED (As requested)
 
+        // Camera
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         // Initial Camera Position
         this.camera.position.z = 100;
 
-        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+        // Renderer
+        this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.renderer.setPixelRatio(window.devicePixelRatio);
-        this.renderer.setClearColor(0x000000);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         this.container.appendChild(this.renderer.domElement);
 
         // Particles
@@ -33,17 +35,15 @@ export class ThreeScene {
         this.targetCameraX = 0;
         this.targetCameraY = 0;
 
-        // Events
-        window.addEventListener('resize', this.onWindowResize.bind(this));
+        // Resize Handler
+        window.addEventListener('resize', () => {
+            this.camera.aspect = window.innerWidth / window.innerHeight;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+        });
 
         // Loop
         this.animate();
-    }
-
-    onWindowResize() {
-        this.camera.aspect = window.innerWidth / window.innerHeight;
-        this.camera.updateProjectionMatrix();
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
     update(data) {
@@ -74,6 +74,7 @@ export class ThreeScene {
 
         // Update Particles (morphing etc)
         const currentExpansion = (120 - this.targetCameraZ) / 100;
+        // We pass 'currentExpansion' to particles for scaling
         this.particles.update(0.016, Math.max(0, currentExpansion), 0);
     }
 
