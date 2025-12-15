@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cosmic Particles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app">
+    <!-- Hidden video element for MediaPipe -->
+    <video id="input_video"></video>
+
+    <!-- Container for Three.js Visualization -->
+    <div id="vis-container"></div>
+
+    <!-- Overlay UI -->
+    <div id="ui-layer">
+      <header>
+        <h1>Cosmic Particles</h1>
+        <p id="status-text">Initializing...</p>
+      </header>
+
+      <div id="controls-hint">
+        <div class="hint">
+          <span class="icon">↔️</span>
+          <span>Spread: Expand</span>
+        </div>
+        <div class="hint">
+          <span class="icon">👌</span>
+          <span>Pinch: Morph Shape</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
